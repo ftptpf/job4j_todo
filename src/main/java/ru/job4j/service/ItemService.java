@@ -1,7 +1,10 @@
 package ru.job4j.service;
 
 import org.springframework.stereotype.Service;
+import ru.job4j.model.Item;
 import ru.job4j.persistence.ItemDbStore;
+
+import java.util.List;
 
 @Service
 public class ItemService {
@@ -9,5 +12,25 @@ public class ItemService {
 
     public ItemService(ItemDbStore store) {
         this.store = store;
+    }
+
+    public Item create(Item item) {
+        return store.create(item);
+    }
+
+    public void update(Item item) {
+        store.update(item);
+    }
+
+    public void delete(Item item) {
+        store.delete(item);
+    }
+
+    public List<Item> findAll() {
+        return store.findAll();
+    }
+
+    public Item findById(int id) {
+        return store.findById(id);
     }
 }
