@@ -58,6 +58,26 @@ public class ItemDbStore {
         return item;
     }
 
+    public List<Item> findAllDone() {
+        Session session = sf.openSession();
+        session.beginTransaction();
+        List list = session.createQuery("From Item where done = true").list();
+        session.getTransaction().commit();
+        session.close();
+        return list;
+    }
+
+    public List<Item> findAllToday() {
+        Session session = sf.openSession();
+        session.beginTransaction();
+        List list = session.createQuery("From Item where created >= CURRENT_DATE").list();
+        session.getTransaction().commit();
+        session.close();
+        return list;
+    }
+
+
+
 
 
 
