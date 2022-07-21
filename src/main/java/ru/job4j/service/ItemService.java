@@ -17,9 +17,10 @@ public class ItemService {
     }
 
     public Item create(Item item) {
-        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
-        item.setCreated(timestamp);
-        return store.create(item);
+        Item one = new Item();
+        one.setDescription(item.getDescription());
+        one.setCreated(Timestamp.valueOf(LocalDateTime.now()));
+        return store.create(one);
     }
 
     public void update(Item item) {
