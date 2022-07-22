@@ -5,8 +5,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.model.Item;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -21,7 +19,6 @@ public class ItemDbStore {
         Session session = sf.openSession();
         session.beginTransaction();
         session.save(item);
-        //List list = session.createQuery("insert into items (description, created, done) values ")
         session.getTransaction().commit();
         session.close();
         return item;

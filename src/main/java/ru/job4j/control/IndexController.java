@@ -3,9 +3,6 @@ package ru.job4j.control;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import ru.job4j.model.Item;
 import ru.job4j.service.ItemService;
 
 @Controller
@@ -35,14 +32,4 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/add")
-    public String add() {
-        return "add";
-    }
-
-    @PostMapping("/add")
-    public String create(@ModelAttribute Item item) {
-        service.create(item);
-        return "redirect:/index";
-    }
 }

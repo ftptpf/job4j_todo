@@ -2,6 +2,7 @@ package ru.job4j.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -11,10 +12,10 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String description;
-    private Timestamp created;
+    private LocalDateTime created;
     private boolean done;
 
-    public static Item of(String description, Timestamp created, boolean done) {
+    public static Item of(String description, LocalDateTime created, boolean done) {
         Item item = new Item();
         item.description = description;
         item.created = created;
@@ -38,11 +39,11 @@ public class Item {
         this.description = description;
     }
 
-    public Timestamp getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(Timestamp created) {
+    public void setCreated(LocalDateTime created) {
         this.created = created;
     }
 

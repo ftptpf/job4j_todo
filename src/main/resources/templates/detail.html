@@ -53,13 +53,7 @@
                         <tbody>
                         <tr th:each="item: ${items}">
                             <td th:text="${item.id}" />
-                            <td>
-                                <a th:href="@{/detail/${item.id}}">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                                <span th:text="${item.description}"></span>
-                            </td>
-<!--                            <td th:text="${item.description}" />-->
+                            <td th:text="${item.description}" />
                             <td th:text="${item.created}" />
                             <td th:text="((${item.done}) ? 'Выполнено' : 'Не выполнено')" />
                         </tr>
