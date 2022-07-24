@@ -1,5 +1,6 @@
 package ru.job4j.control;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.model.Item;
 import ru.job4j.service.ItemService;
 
+@Controller
 public class ItemController {
     private final ItemService service;
 
@@ -31,4 +33,33 @@ public class ItemController {
         model.addAttribute("item", service.findById(id));
         return "detail";
     }
+
+    @GetMapping("/edit/{itemId}")
+    public String edit(Model model, @PathVariable("itemId") int id) {
+        model.addAttribute("item", service.findById(id));
+        return "edit";
+    }
+
+    @GetMapping("/delete/{itemId}")
+    public String delete(@PathVariable("itemId") int id) {
+        Item item = service.findById(id);
+        service.delete(item);
+        return "redirect:/index";
+    }
+
+    @GetMapping("/complete/{itemId}")
+    public String complete(Model model, @PathVariable("itemId") int id) {
+        Item item = service.findById(id);
+        item.setDone(true);
+        service.update(item);
+        model.addAttribute("item", service.findById(id));
+        return "redirect:/detail/" + id;
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute Item item) {
+        service.update(item);
+        return "redirect:/index";
+    }
+
 }

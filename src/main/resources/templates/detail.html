@@ -38,9 +38,11 @@
     </nav>
     <div class="row">
         <div class="card" style="width: 100%">
+            <div class="card-header">
+                Задача
+            </div>
             <div class="card-body">
                 <div>
-                    <label>Задачи</label>
                     <table class="table">
                         <thead>
                         <tr>
@@ -51,7 +53,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="item: ${items}">
+                        <tr>
                             <td th:text="${item.id}" />
                             <td th:text="${item.description}" />
                             <td th:text="${item.created}" />
@@ -60,13 +62,18 @@
                         </tbody>
                     </table>
                 </div>
-                <a th:href="@{/add}">
-                    <button type="button" class="btn btn-primary">Добавить задачу</button>
+                <a th:if="${not item.done}" th:href="@{|/complete/${item.id}|}">
+                    <button type="button" class="btn btn-primary">Выполнено</button>
+                </a>
+                <a th:href="@{|/edit/${item.id}|}">
+                    <button type="button" class="btn btn-primary">Отредактировать</button>
+                </a>
+                <a th:href="@{|/delete/${item.id}|}">
+                    <button type="button" class="btn btn-primary">Удалить</button>
                 </a>
             </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>

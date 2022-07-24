@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import ru.job4j.model.Item;
 import ru.job4j.persistence.ItemDbStore;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 

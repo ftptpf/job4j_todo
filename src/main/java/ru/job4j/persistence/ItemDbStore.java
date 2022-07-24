@@ -43,7 +43,7 @@ public class ItemDbStore {
     public List<Item> findAll() {
         Session session = sf.openSession();
         session.beginTransaction();
-        List list = session.createQuery("From Item").list();
+        List list = session.createQuery("FROM Item ORDER BY id").list();
         session.getTransaction().commit();
         session.close();
         return list;
@@ -61,7 +61,7 @@ public class ItemDbStore {
     public List<Item> findAllDone() {
         Session session = sf.openSession();
         session.beginTransaction();
-        List list = session.createQuery("From Item where done = true").list();
+        List list = session.createQuery("FROM Item WHERE done = true ORDER BY id").list();
         session.getTransaction().commit();
         session.close();
         return list;
@@ -70,15 +70,10 @@ public class ItemDbStore {
     public List<Item> findAllToday() {
         Session session = sf.openSession();
         session.beginTransaction();
-        List list = session.createQuery("From Item where created >= CURRENT_DATE").list();
+        List list = session.createQuery("FROM Item WHERE created >= CURRENT_DATE ORDER BY id ").list();
         session.getTransaction().commit();
         session.close();
         return list;
     }
-
-
-
-
-
 
 }
