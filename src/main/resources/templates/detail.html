@@ -43,34 +43,40 @@
             </div>
             <div class="card-body">
                 <div>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">№</th>
-                            <th scope="col">Задача</th>
-                            <th scope="col">Дата создания</th>
-                            <th scope="col">Состояние</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td th:text="${item.id}" />
-                            <td th:text="${item.description}" />
-                            <td th:text="${item.created}" />
-                            <td th:text="((${item.done}) ? 'Выполнено' : 'Не выполнено')" />
-                        </tr>
-                        </tbody>
-                    </table>
+                    <form th:action="@{/complete}" method="post" th:object="${item}">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">№</th>
+                                <th scope="col">Задача</th>
+                                <th scope="col">Дата создания</th>
+                                <th scope="col">Состояние</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td th:text="${item.id}" />
+                                <td th:text="${item.description}" />
+                                <td th:text="${item.created}" />
+                                <td th:text="((${item.done}) ? 'Выполнено' : 'Не выполнено')" />
+                            </tr>
+                            </tbody>
+                        </table>
+                        <input type="hidden" name="id" th:field="${item.id}">
+                        <input type="hidden" name="description" th:field="${item.description}">
+                        <input type="hidden" name="created" th:field="${item.created}">
+                        <input type="hidden" name = "done" th:value="true">
+                        <a th:if="${not item.done}">
+                            <button type="submit" class="btn btn-primary">Выполнено</button>
+                        </a>
+                        <a th:href="@{|/edit/${item.id}|}">
+                            <button type="button" class="btn btn-primary">Отредактировать</button>
+                        </a>
+                        <a th:href="@{|/delete/${item.id}|}">
+                            <button type="button" class="btn btn-primary">Удалить</button>
+                        </a>
+                    </form>
                 </div>
-                <a th:if="${not item.done}" th:href="@{|/complete/${item.id}|}">
-                    <button type="button" class="btn btn-primary">Выполнено</button>
-                </a>
-                <a th:href="@{|/edit/${item.id}|}">
-                    <button type="button" class="btn btn-primary">Отредактировать</button>
-                </a>
-                <a th:href="@{|/delete/${item.id}|}">
-                    <button type="button" class="btn btn-primary">Удалить</button>
-                </a>
             </div>
         </div>
     </div>

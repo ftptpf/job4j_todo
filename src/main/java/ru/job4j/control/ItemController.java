@@ -47,11 +47,10 @@ public class ItemController {
         return "redirect:/index";
     }
 
-    @GetMapping("/complete/{itemId}")
-    public String complete(Model model, @PathVariable("itemId") int id) {
-        Item item = service.findById(id);
-        item.setDone(true);
+    @PostMapping("/complete")
+    public String complete(Model model, @ModelAttribute Item item) {
         service.update(item);
+        int id = item.getId();
         model.addAttribute("item", service.findById(id));
         return "redirect:/detail/" + id;
     }
