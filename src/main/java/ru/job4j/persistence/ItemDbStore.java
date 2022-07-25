@@ -24,12 +24,13 @@ public class ItemDbStore {
         return item;
     }
 
-    public void update(Item item) {
+    public Item update(Item item) {
         Session session = sf.openSession();
         session.beginTransaction();
         session.update(item);
         session.getTransaction().commit();
         session.close();
+        return item;
     }
 
     public void delete(Item item) {

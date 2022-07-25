@@ -49,10 +49,8 @@ public class ItemController {
 
     @PostMapping("/complete")
     public String complete(Model model, @ModelAttribute Item item) {
-        service.update(item);
-        int id = item.getId();
-        model.addAttribute("item", service.findById(id));
-        return "redirect:/detail/" + id;
+        model.addAttribute("item", service.update(item));
+        return "redirect:/detail/" + item.getId();
     }
 
     @PostMapping("/update")

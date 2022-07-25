@@ -20,8 +20,8 @@ public class ItemService {
         return store.create(item);
     }
 
-    public void update(Item item) {
-        store.update(item);
+    public Item update(Item item) {
+        return store.update(item);
     }
 
     public void delete(Item item) {
