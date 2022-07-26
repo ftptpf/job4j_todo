@@ -1,6 +1,13 @@
 CREATE TABLE IF NOT EXISTS items (
     id SERIAL PRIMARY KEY,
-    description TEXT,
+    description TEXT NOT NULL ,
     created TIMESTAMP,
     done BOOLEAN
+);
+
+CREATE TABLE IF NOT EXISTS accounts (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(128) NOT NULL ,
+    login VARCHAR(128) UNIQUE NOT NULL ,
+    password VARCHAR(128) NOT NULL
 );

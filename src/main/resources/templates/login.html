@@ -18,7 +18,7 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Добавить Задачу</title>
+    <title>Задания</title>
 </head>
 <body>
 <div class="container">
@@ -48,18 +48,22 @@
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Отредактировать задачу
+                Авторизация
             </div>
             <div class="card-body">
-                <form th:action="@{/update}" method="post" th:object="${item}" >
-                    <input type="hidden" name="id" th:field="*{id}"/>
+                <div th:if="${fail}" class="alert alert-danger" role="alert">
+                    Логин или пароль введены неверно!
+                </div>
+                <form th:action="@{/login}" method="post">
                     <div class="form-group">
-                        <label for="description">Описание</label>
-                        <input type="text" class="form-control" name="description" id="description" th:field="*{description}">
+                        <label>Логин</label>
+                        <input type="text" class="form-control" name="login">
                     </div>
-                    <input type="hidden" name="created" th:field="*{created}"/>
-                    <input type="hidden" name="done" th:field="*{done}"/>
-                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    <div class="form-group">
+                        <label>Пароль</label>
+                        <input type="text" class="form-control" name="password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Войти</button>
                 </form>
             </div>
         </div>

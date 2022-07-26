@@ -18,7 +18,7 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Добавить Задачу</title>
+    <title>Задания</title>
 </head>
 <body>
 <div class="container">
@@ -46,20 +46,31 @@
         </div>
     </nav>
     <div class="row">
+        <div>
+            <div th:if="${message != null and message != 'Пользователь успешно зарегистрирован'}" class="alert alert-danger" role="alert" th:text="${message}"></div>
+            <div th:if="${message == 'Пользователь успешно зарегистрирован'}" class="alert alert-success" role="alert" th:text="${message}"></div>
+        </div>
+    </div>
+    <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Отредактировать задачу
+                Регистрация.
             </div>
             <div class="card-body">
-                <form th:action="@{/update}" method="post" th:object="${item}" >
-                    <input type="hidden" name="id" th:field="*{id}"/>
+                <form th:action="@{/registration}" method="post">
                     <div class="form-group">
-                        <label for="description">Описание</label>
-                        <input type="text" class="form-control" name="description" id="description" th:field="*{description}">
+                        <label for="name">Имя</label>
+                        <input type="text" class="form-control" name="name" id="name">
                     </div>
-                    <input type="hidden" name="created" th:field="*{created}"/>
-                    <input type="hidden" name="done" th:field="*{done}"/>
-                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    <div class="form-group">
+                        <label for="login">Логин</label>
+                        <input type="text" class="form-control" name="login" id="login">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Пароль</label>
+                        <input type="text" class="form-control" name="password" id="password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
             </div>
         </div>
