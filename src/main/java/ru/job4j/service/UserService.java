@@ -5,6 +5,7 @@ import ru.job4j.model.User;
 import ru.job4j.persistence.UserDbStore;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {

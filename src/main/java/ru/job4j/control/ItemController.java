@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.model.Item;
 import ru.job4j.service.ItemService;
+import ru.job4j.util.UserUtil;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class ItemController {
@@ -18,7 +21,8 @@ public class ItemController {
     }
 
     @GetMapping("/add")
-    public String add() {
+    public String add(Model model, HttpSession session) {
+        UserUtil.checkAndSetGuestName(model, session);
         return "add";
     }
 
@@ -29,13 +33,15 @@ public class ItemController {
     }
 
     @GetMapping("/detail/{itemId}")
-    public String detail(Model model, @PathVariable("itemId") int id) {
+    public String detail(Model model, @PathVariable("itemId") int id, HttpSession session) {
+        UserUtil.checkAndSetGuestName(model, session);
         model.addAttribute("item", service.findById(id));
         return "detail";
     }
 
     @GetMapping("/edit/{itemId}")
-    public String edit(Model model, @PathVariable("itemId") int id) {
+    public String edit(Model model, @PathVariable("itemId") int id, HttpSession session) {
+        UserUtil.checkAndSetGuestName(model, session);
         model.addAttribute("item", service.findById(id));
         return "edit";
     }

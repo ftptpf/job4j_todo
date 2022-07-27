@@ -28,14 +28,13 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String registration(Model model, @ModelAttribute User user, HttpSession session) {
-        List<User> list = (List<User>) service.create(user);
-        if (list.isEmpty()) {
+    public String registration(Model model, @ModelAttribute User user) {
+        User regUser = service.create(user);
+        if (regUser == null) {
             model.addAttribute("message", "Ошибка регистрации. Пользователь с таким логином уже существует");
         } else {
             model.addAttribute("message", "Пользователь успешно зарегистрирован");
         }
-        UserUtil.checkAndSetGuestName(model, session);
         return "registration";
     }
 

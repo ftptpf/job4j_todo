@@ -29,7 +29,7 @@ public class UserDbStore {
     public List<User> findByLoginAndPassword(String login, String password) {
         Session session = sf.openSession();
         session.beginTransaction();
-        Query query = session.createQuery("FROM User WHERE name = :userLogin AND password = :userPassword");
+        Query query = session.createQuery("FROM User WHERE login = :userLogin AND password = :userPassword");
         query.setParameter("userLogin", login);
         query.setParameter("userPassword", password);
         List list = query.list();
