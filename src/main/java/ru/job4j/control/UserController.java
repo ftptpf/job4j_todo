@@ -12,6 +12,7 @@ import ru.job4j.util.UserUtil;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -29,12 +30,15 @@ public class UserController {
 
     @PostMapping("/registration")
     public String registration(Model model, @ModelAttribute User user) {
-        User regUser = service.create(user);
-        if (regUser == null) {
+        Optional<User> dbUser = service.create(user);
+        if (dbUser.isEmpty()) {
             model.addAttribute("message", "Ошибка регистрации. Пользователь с таким логином уже существует");
         } else {
             model.addAttribute("message", "Пользователь успешно зарегистрирован");
         }
+        User guestUser = new User();
+        guestUser.setName("Гость");
+        model.addAttribute("user", guestUser);
         return "registration";
     }
 

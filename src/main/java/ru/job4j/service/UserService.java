@@ -15,7 +15,7 @@ public class UserService {
         this.store = store;
     }
 
-    public User create(User user) {
+    public Optional<User> create(User user) {
         return store.create(user);
     }
 

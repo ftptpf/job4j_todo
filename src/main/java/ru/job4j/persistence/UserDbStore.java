@@ -17,13 +17,19 @@ public class UserDbStore {
         this.sf = sf;
     }
 
-    public User create(User user) {
+    public Optional<User> create(User user) {
         Session session = sf.openSession();
         session.beginTransaction();
-        session.save(user);
-        session.getTransaction().commit();
-        session.close();
-        return user;
+        try {
+            session.save(user);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Optional.empty();
+        } finally {
+            session.close();
+        }
+        return Optional.of(user);
     }
 
     public List<User> findByLoginAndPassword(String login, String password) {
