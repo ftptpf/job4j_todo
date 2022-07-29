@@ -32,7 +32,7 @@ public class UserController {
     public String registration(Model model, @ModelAttribute User user) {
         Optional<User> dbUser = service.create(user);
         if (dbUser.isEmpty()) {
-            model.addAttribute("message", "Ошибка регистрации. Пользователь с таким логином уже существует");
+            model.addAttribute("message", "Ошибка регистрации. Все поля должны быть заполнены и у пользователя должен быть уникальный логин.");
         } else {
             model.addAttribute("message", "Пользователь успешно зарегистрирован");
         }
@@ -67,7 +67,5 @@ public class UserController {
         session.invalidate();
         return "redirect:/login";
     }
-
-
 
 }
