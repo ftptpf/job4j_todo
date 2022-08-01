@@ -1,9 +1,9 @@
 package ru.job4j.persistence;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.model.Item;
+import ru.job4j.util.DbConnect;
 
 import java.util.List;
 
@@ -16,65 +16,40 @@ public class ItemDbStore {
     }
 
     public Item create(Item item) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        session.save(item);
-        session.getTransaction().commit();
-        session.close();
-        return item;
+        return (Item) DbConnect.tx(session -> session.save(item), sf);
     }
 
     public Item update(Item item) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        session.update(item);
-        session.getTransaction().commit();
-        session.close();
-        return item;
+        return DbConnect.tx(session -> {
+            session.update(item);
+            return item;
+        }, sf);
     }
 
     public void delete(Item item) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        session.delete(item);
-        session.getTransaction().commit();
-        session.close();
+        DbConnect.tx(session -> {
+            session.delete(item);
+            return true;
+        }, sf);
     }
 
     public List<Item> findAll() {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        List list = session.createQuery("FROM Item ORDER BY id").list();
-        session.getTransaction().commit();
-        session.close();
-        return list;
+        return DbConnect.tx(session -> session.createQuery("FROM Item ORDER BY id")
+                .list(), sf);
     }
 
     public Item findById(int id) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        Item item = session.get(Item.class, id);
-        session.getTransaction().commit();
-        session.close();
-        return item;
+        return DbConnect.tx(session -> session.get(Item.class, id), sf);
     }
 
     public List<Item> findAllDone() {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        List list = session.createQuery("FROM Item WHERE done = true ORDER BY id").list();
-        session.getTransaction().commit();
-        session.close();
-        return list;
+        return DbConnect.tx(session -> session.createQuery("FROM Item WHERE done = true ORDER BY id")
+                .list(), sf);
     }
 
     public List<Item> findAllToday() {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        List list = session.createQuery("FROM Item WHERE created >= CURRENT_DATE ORDER BY id ").list();
-        session.getTransaction().commit();
-        session.close();
-        return list;
+        return DbConnect.tx(session -> session.createQuery("FROM Item WHERE created >= CURRENT_DATE ORDER BY id ")
+                .list(), sf);
     }
 
 }
