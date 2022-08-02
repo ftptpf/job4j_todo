@@ -5,9 +5,11 @@ CREATE TABLE IF NOT EXISTS items (
     done BOOLEAN
 );
 
-CREATE TABLE IF NOT EXISTS accounts (
+CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY ,
     name VARCHAR(128) ,
     login VARCHAR(128) UNIQUE ,
     password VARCHAR(128)
 );
+
+ALTER TABLE items ADD COLUMN id_user int REFERENCES users(id);

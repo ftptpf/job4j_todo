@@ -59,6 +59,7 @@
                                 <th scope="col">№</th>
                                 <th scope="col">Задача</th>
                                 <th scope="col">Дата создания</th>
+                                <th scope="col">Автор</th>
                                 <th scope="col">Состояние</th>
                             </tr>
                             </thead>
@@ -67,6 +68,7 @@
                                 <td th:text="${item.id}" />
                                 <td th:text="${item.description}" />
                                 <td th:text="${item.created}" />
+                                <td th:text="${item.user.name}" />
                                 <td th:text="((${item.done}) ? 'Выполнено' : 'Не выполнено')" />
                             </tr>
                             </tbody>

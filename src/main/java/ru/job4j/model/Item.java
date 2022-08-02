@@ -16,12 +16,16 @@ public class Item {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime created;
     private boolean done;
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
 
-    public static Item of(String description, LocalDateTime created, boolean done) {
+    public static Item of(String description, LocalDateTime created, boolean done, User user) {
         Item item = new Item();
         item.description = description;
         item.created = created;
         item.done = done;
+        item.user = user;
         return item;
     }
 
@@ -55,6 +59,14 @@ public class Item {
 
     public void setDone(boolean done) {
         this.done = done;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
