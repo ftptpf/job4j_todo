@@ -17,7 +17,7 @@ public class Item {
     private LocalDateTime created;
     private boolean done;
     @ManyToOne
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "user_id")
     private User user;
 
     public static Item of(String description, LocalDateTime created, boolean done, User user) {

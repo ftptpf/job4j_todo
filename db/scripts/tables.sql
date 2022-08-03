@@ -2,7 +2,8 @@ CREATE TABLE IF NOT EXISTS items (
     id SERIAL PRIMARY KEY ,
     description TEXT ,
     created TIMESTAMP ,
-    done BOOLEAN
+    done BOOLEAN ,
+    user_id int NOT NULL REFERENCES users(id)
 );
 
 CREATE TABLE IF NOT EXISTS users (
@@ -11,5 +12,3 @@ CREATE TABLE IF NOT EXISTS users (
     login VARCHAR(128) UNIQUE ,
     password VARCHAR(128)
 );
-
-ALTER TABLE items ADD COLUMN id_user int REFERENCES users(id);

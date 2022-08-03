@@ -52,14 +52,15 @@
             </div>
             <div class="card-body">
                 <form th:action="@{/update}" method="post" th:object="${item}" >
-                    <input type="hidden" name="id" th:field="*{id}"/>
+                    <!--<input type="hidden" name="id" th:field="*{id}"/>-->
                     <div class="form-group">
                         <label for="description">Описание</label>
                         <input type="text" class="form-control" name="description" id="description" th:field="*{description}" required>
                     </div>
-                    <input type="hidden" name="created" th:field="*{created}"/>
+<!--                    <input type="hidden" name="created" th:field="*{created}"/>
                     <input type="hidden" name="done" th:field="*{done}"/>
                     <input type="hidden" name="user" th:field="*{user}" />
+                    <input type="hidden" name="user_id" th:field="{user.id}" />-->
                     <button type="submit" class="btn btn-primary">Сохранить изменения</button>
                 </form>
             </div>

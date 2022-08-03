@@ -16,7 +16,8 @@ public class ItemDbStore {
     }
 
     public Item create(Item item) {
-        return (Item) DbConnect.tx(session -> session.save(item), sf);
+        DbConnect.tx(session -> session.save(item), sf);
+        return item;
     }
 
     public Item update(Item item) {
