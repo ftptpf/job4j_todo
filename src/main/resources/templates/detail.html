@@ -73,10 +73,11 @@
                             </tr>
                             </tbody>
                         </table>
-                        <input type="hidden" name="id" th:field="${item.id}">
-                        <input type="hidden" name="description" th:field="${item.description}">
-                        <input type="hidden" name="created" th:field="${item.created}">
-                        <input type="hidden" name = "done" th:value="true">
+                        <input type="hidden" name="id" th:field="*{id}">
+                        <input type="hidden" name="description" th:field="*{description}">
+                        <input type="hidden" name="created" th:field="*{created}">
+                        <input type="hidden" name="done" th:value="true">
+                        <input type="hidden" name="user_id" th:field="*{user.id}"/>
                         <a th:if="${not item.done}">
                             <button type="submit" class="btn btn-primary">Выполнено</button>
                         </a>

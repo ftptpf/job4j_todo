@@ -59,7 +59,7 @@
                     </div>
                     <input type="hidden" name="created" th:field="*{created}"/>
                     <input type="hidden" name="done" th:field="*{done}"/>
-                    <input type="hidden" name="user" th:object="${item.user}"/>
+                    <input type="hidden" name="user_id" th:field="*{user.id}"/>
                     <button type="submit" class="btn btn-primary">Сохранить изменения</button>
                 </form>
             </div>
