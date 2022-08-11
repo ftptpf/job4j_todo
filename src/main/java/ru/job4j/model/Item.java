@@ -4,6 +4,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,13 +21,17 @@ public class Item {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    @ManyToMany
+    @JoinColumn(name = "categories_id")
+    List<Category> categories = new ArrayList<>();
 
-    public static Item of(String description, LocalDateTime created, boolean done, User user) {
+    public static Item of(String description, LocalDateTime created, boolean done, User user, Category category) {
         Item item = new Item();
         item.description = description;
         item.created = created;
         item.done = done;
         item.user = user;
+        item.category = category;
         return item;
     }
 
