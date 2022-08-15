@@ -21,17 +21,15 @@ public class Item {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @ManyToMany
-    @JoinColumn(name = "categories_id")
-    List<Category> categories = new ArrayList<>();
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Category> categories = new ArrayList<>();
 
-    public static Item of(String description, LocalDateTime created, boolean done, User user, Category category) {
+    public static Item of(String description, LocalDateTime created, boolean done, User user) {
         Item item = new Item();
         item.description = description;
         item.created = created;
         item.done = done;
         item.user = user;
-        item.category = category;
         return item;
     }
 
