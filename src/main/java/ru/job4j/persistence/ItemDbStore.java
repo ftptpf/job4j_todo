@@ -15,14 +15,9 @@ public class ItemDbStore {
         this.sf = sf;
     }
 
-    public Item create(Item item) {
-        DbConnect.tx(session -> session.save(item), sf);
-        return item;
-    }
-
-    public Item update(Item item) {
+    public Item saveOrUpdate(Item item) {
         return DbConnect.tx(session -> {
-            session.update(item);
+            session.saveOrUpdate(item);
             return item;
         }, sf);
     }
@@ -35,21 +30,26 @@ public class ItemDbStore {
     }
 
     public List<Item> findAll() {
-        return DbConnect.tx(session -> session.createQuery("FROM Item ORDER BY id")
+        return DbConnect.tx(session -> session.createQuery(
+                "select distinct i from Item i join fetch i.categories ORDER BY i.id")
                 .list(), sf);
     }
 
     public Item findById(int id) {
-        return DbConnect.tx(session -> session.get(Item.class, id), sf);
+        return (Item) DbConnect.tx(session -> session.createQuery(
+                "select distinct i from Item i join fetch i.categories where i.id = :fId")
+                        .setParameter("fId", id).uniqueResult(), sf);
     }
 
     public List<Item> findAllDone() {
-        return DbConnect.tx(session -> session.createQuery("FROM Item WHERE done = true ORDER BY id")
+        return DbConnect.tx(session -> session.createQuery(
+                "select distinct i from Item i join fetch i.categories where i.done = true ORDER BY i.id")
                 .list(), sf);
     }
 
     public List<Item> findAllToday() {
-        return DbConnect.tx(session -> session.createQuery("FROM Item WHERE created >= CURRENT_DATE ORDER BY id ")
+        return DbConnect.tx(session -> session.createQuery(
+                "select distinct i from Item i join fetch i.categories where i.created >= CURRENT_DATE ORDER BY i.id")
                 .list(), sf);
     }
 

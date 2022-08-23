@@ -17,11 +17,13 @@ public class ItemService {
 
     public Item create(Item item) {
         item.setCreated(LocalDateTime.now());
-        return store.create(item);
+        Item result = store.saveOrUpdate(item);
+        return result;
     }
 
     public Item update(Item item) {
-        return store.update(item);
+        Item result = store.saveOrUpdate(item);
+        return result;
     }
 
     public void delete(Item item) {

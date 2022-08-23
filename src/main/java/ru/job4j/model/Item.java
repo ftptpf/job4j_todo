@@ -33,6 +33,10 @@ public class Item {
         return item;
     }
 
+    public void addCategory(Category category) {
+        this.categories.add(category);
+    }
+
     public int getId() {
         return id;
     }
@@ -73,6 +77,14 @@ public class Item {
         this.user = user;
     }
 
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -88,5 +100,17 @@ public class Item {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Item{"
+                + "id=" + id
+                + ", description='" + description + '\''
+                + ", created=" + created
+                + ", done=" + done
+                + ", user=" + user
+                + ", categories=" + categories
+                + '}';
     }
 }

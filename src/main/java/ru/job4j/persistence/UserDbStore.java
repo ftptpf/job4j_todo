@@ -28,7 +28,8 @@ public class UserDbStore {
     }
 
     public List<User> findByLoginAndPassword(String login, String password) {
-        return DbConnect.tx(session -> session.createQuery("FROM User WHERE login = :userLogin AND password = :userPassword")
+        return DbConnect.tx(session -> session.createQuery(
+                "FROM User WHERE login = :userLogin AND password = :userPassword")
                 .setParameter("userLogin", login)
                 .setParameter("userPassword", password)
                 .list(), sf);

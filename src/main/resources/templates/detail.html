@@ -58,6 +58,7 @@
                             <tr>
                                 <th scope="col">№</th>
                                 <th scope="col">Задача</th>
+                                <th scope="col">Категория</th>
                                 <th scope="col">Дата создания</th>
                                 <th scope="col">Автор</th>
                                 <th scope="col">Состояние</th>
@@ -67,6 +68,11 @@
                             <tr>
                                 <td th:text="${item.id}" />
                                 <td th:text="${item.description}" />
+                                <td>
+                                    <div th:each="category: ${item.categories}" >
+                                        <span th:text="${category.name}" />
+                                    </div>
+                                </td>
                                 <td th:text="${item.created}" />
                                 <td th:text="${item.user.name}" />
                                 <td th:text="((${item.done}) ? 'Выполнено' : 'Не выполнено')" />
@@ -75,9 +81,12 @@
                         </table>
                         <input type="hidden" name="id" th:field="*{id}">
                         <input type="hidden" name="description" th:field="*{description}">
+                        <div th:each="category: ${item.categories}" >
+                            <input type="hidden" name="category.id" th:value="${category.id}">
+                        </div>
                         <input type="hidden" name="created" th:field="*{created}">
                         <input type="hidden" name="done" th:value="true">
-                        <input type="hidden" name="user_id" th:field="*{user.id}"/>
+                        <input type="hidden" name="user_id" th:field="*{user.id}">
                         <a th:if="${not item.done}">
                             <button type="submit" class="btn btn-primary">Выполнено</button>
                         </a>

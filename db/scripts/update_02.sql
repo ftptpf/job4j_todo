@@ -16,7 +16,4 @@ ALTER TABLE items_categories
 ADD CONSTRAINT categories_id_constraint
 FOREIGN KEY (categories_id) REFERENCES categories(id);
 
-INSERT INTO categories (name) VALUES ('Работа');
-INSERT INTO categories (name) VALUES ('Дом');
-INSERT INTO categories (name) VALUES ('Учеба');
 

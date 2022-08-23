@@ -55,6 +55,7 @@
                         <tr>
                             <th scope="col">№</th>
                             <th scope="col">Задача</th>
+                            <th scope="col">Категория</th>
                             <th scope="col">Дата создания</th>
                             <th scope="col">Автор</th>
                             <th scope="col">Состояние</th>
@@ -63,10 +64,15 @@
                         <tbody>
                         <tr th:each="item: ${items}">
                             <td th:text="${item.id}" />
-                            <td>
+                            <td >
                                 <a th:href="@{|/detail/${item.id}|} ">
-                                    <span th:text="${item.description}"></span>
+                                    <span th:text="${item.description}" />
                                 </a>
+                            </td>
+                            <td>
+                                <div th:each="category: ${item.categories}" >
+                                    <span th:text="${category.name}" />
+                                </div>
                             </td>
                             <td th:text="${item.created}" />
                             <td th:text="${item.user.name}" />
