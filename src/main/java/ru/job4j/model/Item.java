@@ -3,8 +3,8 @@ package ru.job4j.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,8 +15,9 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String description;
+    @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime created;
+    private Date created;
     private boolean done;
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -24,7 +25,7 @@ public class Item {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Category> categories = new ArrayList<>();
 
-    public static Item of(String description, LocalDateTime created, boolean done, User user) {
+    public static Item of(String description, Date created, boolean done, User user) {
         Item item = new Item();
         item.description = description;
         item.created = created;
@@ -53,11 +54,11 @@ public class Item {
         this.description = description;
     }
 
-    public LocalDateTime getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDateTime created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 

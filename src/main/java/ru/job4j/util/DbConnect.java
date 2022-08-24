@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import java.util.TimeZone;
 import java.util.function.Function;
 
 public class DbConnect {
@@ -12,7 +13,10 @@ public class DbConnect {
     }
 
     public static <T> T tx(final Function<Session, T> command, SessionFactory sf) {
-        final Session session = sf.openSession();
+        final Session session = sf
+                .withOptions()
+                .jdbcTimeZone(TimeZone.getTimeZone("UTC"))
+                .openSession();
         final Transaction tx = session.beginTransaction();
         try {
             T rsl = command.apply(session);

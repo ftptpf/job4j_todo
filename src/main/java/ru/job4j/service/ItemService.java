@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.job4j.model.Item;
 import ru.job4j.persistence.ItemDbStore;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -16,14 +16,12 @@ public class ItemService {
     }
 
     public Item create(Item item) {
-        item.setCreated(LocalDateTime.now());
-        Item result = store.saveOrUpdate(item);
-        return result;
+        item.setCreated(new Date(System.currentTimeMillis()));
+        return store.saveOrUpdate(item);
     }
 
     public Item update(Item item) {
-        Item result = store.saveOrUpdate(item);
-        return result;
+        return store.saveOrUpdate(item);
     }
 
     public void delete(Item item) {
