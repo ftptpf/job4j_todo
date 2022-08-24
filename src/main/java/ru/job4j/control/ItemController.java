@@ -10,7 +10,6 @@ import ru.job4j.model.Item;
 import ru.job4j.model.User;
 import ru.job4j.service.CategoryService;
 import ru.job4j.service.ItemService;
-import ru.job4j.util.ItemUtil;
 import ru.job4j.util.UserUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +35,7 @@ public class ItemController {
     @PostMapping("/add")
     public String create(@ModelAttribute Item item, HttpSession session, HttpServletRequest req) {
         String[] parameters = req.getParameterValues("category.id");
-        ItemUtil.setCategories(item, parameters, categoryService);
+        setCategories(item, parameters);
         User user = (User) session.getAttribute("user");
         item.setUser(user);
         itemService.create(item);
@@ -68,7 +67,7 @@ public class ItemController {
     @PostMapping("/complete")
     public String complete(Model model, @ModelAttribute Item item, HttpServletRequest req) {
         String[] parameters = req.getParameterValues("category.id");
-        ItemUtil.setCategories(item, parameters, categoryService);
+        setCategories(item, parameters);
         model.addAttribute("item", itemService.update(item));
         return "redirect:/detail/" + item.getId();
     }
@@ -76,9 +75,16 @@ public class ItemController {
     @PostMapping("/update")
     public String update(@ModelAttribute Item item, HttpServletRequest req) {
         String[] parameters = req.getParameterValues("category.id");
-        ItemUtil.setCategories(item, parameters, categoryService);
+        setCategories(item, parameters);
         itemService.update(item);
         return "redirect:/index";
+    }
+
+    public void setCategories(Item item, String[] parameters) {
+        for (String id : parameters) {
+            int categoryId = Integer.parseInt(id);
+            item.addCategory(categoryService.findById(categoryId));
+        }
     }
 
 }

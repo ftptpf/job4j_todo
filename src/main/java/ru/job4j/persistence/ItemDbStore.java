@@ -31,25 +31,25 @@ public class ItemDbStore {
 
     public List<Item> findAll() {
         return DbConnect.tx(session -> session.createQuery(
-                "select distinct i from Item i join fetch i.categories ORDER BY i.id")
+                "SELECT DISTINCT i FROM Item i JOIN FETCH i.categories ORDER BY i.id")
                 .list(), sf);
     }
 
     public Item findById(int id) {
         return (Item) DbConnect.tx(session -> session.createQuery(
-                "select distinct i from Item i join fetch i.categories where i.id = :fId")
+                "SELECT DISTINCT i FROM Item i JOIN FETCH i.categories WHERE i.id = :fId")
                         .setParameter("fId", id).uniqueResult(), sf);
     }
 
     public List<Item> findAllDone() {
         return DbConnect.tx(session -> session.createQuery(
-                "select distinct i from Item i join fetch i.categories where i.done = true ORDER BY i.id")
+                "SELECT DISTINCT i FROM Item i JOIN FETCH i.categories WHERE i.done = true ORDER BY i.id")
                 .list(), sf);
     }
 
     public List<Item> findAllToday() {
         return DbConnect.tx(session -> session.createQuery(
-                "select distinct i from Item i join fetch i.categories where i.created >= CURRENT_DATE ORDER BY i.id")
+                "SELECT DISTINCT i FROM Item i JOIN FETCH i.categories WHERE i.created >= CURRENT_DATE ORDER BY i.id")
                 .list(), sf);
     }
 

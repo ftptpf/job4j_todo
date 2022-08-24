@@ -16,11 +16,11 @@ public class CategoryDbStore {
     }
 
     public List<Category> findAll() {
-        return DbConnect.tx(session -> session.createQuery("from Category ORDER BY id").list(), sf);
+        return DbConnect.tx(session -> session.createQuery("FROM Category ORDER BY id").list(), sf);
     }
 
     public Category findById(int id) {
         return (Category) DbConnect.tx(session -> session.createQuery(
-                "from Category where id = :fId").setParameter("fId", id).uniqueResult(), sf);
+                "FROM Category WHERE id = :fId").setParameter("fId", id).uniqueResult(), sf);
     }
 }
